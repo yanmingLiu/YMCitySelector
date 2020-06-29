@@ -23,7 +23,7 @@ pod 'YMCitySelector'
 简洁高效的城市选择器，3个tableview组成，支持设置默认值(在show方法调用后才能设置默认值)，选择使用block回调，调用简单，只需要3行代码，即可实现漂亮的城市选择器。
 
 
-
+![效果](https://github.com/yanmingLiu/YMCitySelector/blob/master/Example/1593428933660.gif)
 
 ## Author
 
