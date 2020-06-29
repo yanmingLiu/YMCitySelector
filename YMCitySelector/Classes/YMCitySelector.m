@@ -110,6 +110,7 @@
     if (self) {
         UILabel *label = [[UILabel alloc] init];
         label.text = @"所在地区";
+        label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont boldSystemFontOfSize:17];
         label.textColor = [UIColor colorWithRed:72/255.0 green:72/255.0 blue:72/255.0 alpha:1.0];
         [label sizeToFit];
@@ -144,11 +145,13 @@
     CGFloat btnWH = 63;
     CGFloat x = 10;
     CGFloat w = self.frame.size.width;
-    
-    self.label.center = CGPointMake(w/2, self.frame.size.height/2);
+    CGFloat sureX = w-x-btnWH;
     self.cacelBtn.frame = CGRectMake(x, 0, btnWH, btnWH);
-    self.sureBtn.frame = CGRectMake(w-10-btnWH, 0, btnWH, btnWH);
+    self.sureBtn.frame = CGRectMake(sureX, 0, btnWH, btnWH);
     self.line.frame = CGRectMake(0, btnWH, w, 1);
+    
+    CGFloat lx = CGRectGetMaxX(self.cacelBtn.frame) + x;
+    self.label.frame = CGRectMake(lx, 0, sureX - lx - x, btnWH);
 }
 
 @end
@@ -177,6 +180,7 @@
     [super viewDidLoad];
     
     [self setupUI];
+    
     [self loadData];
 }
 
@@ -321,29 +325,31 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = color_black;
         cell.contentView.backgroundColor = [UIColor clearColor];
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.numberOfLines = 2;
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
+        cell.textLabel.font = self.textFont ? self.textFont : [UIFont systemFontOfSize:15];
     }
+    UIColor *dColor = self.textDefaultColor ? self.textDefaultColor : color_black;
+    UIColor *sColor = self.textSelectedtColor ? self.textSelectedtColor : color_green;
     if (tableView == self.fistTableView) {
         AXProvince *province = self.regions[indexPath.row];
         cell.textLabel.text = province.name;
-        cell.textLabel.textColor = self.firstIndex == indexPath ? color_green : color_black;
+        cell.textLabel.textColor = self.firstIndex == indexPath ? sColor : dColor;
     }
     else if (tableView == self.secondTableView) {
         AXProvince *province = self.regions[self.firstIndex.row];
         AXCity *city = province.city[indexPath.row];
         cell.textLabel.text = city.name;
-        cell.textLabel.textColor = self.secondIndex == indexPath ? color_green : color_black;
+        cell.textLabel.textColor = self.secondIndex == indexPath ? sColor : dColor;
     }
     else if (tableView == self.thirdTableView) {
         AXProvince *province = self.regions[self.firstIndex.row];
         AXCity *city = province.city[self.secondIndex.row];
         NSString *area = city.area[indexPath.row];
         cell.textLabel.text = area;
-        cell.textLabel.textColor = self.thirdIndex == indexPath ? color_green : color_black;
+        cell.textLabel.textColor = self.thirdIndex == indexPath ? sColor : dColor;
     }
     return cell;
 }
@@ -363,6 +369,49 @@
     }
     [self reloadData];
 }
+
+#pragma mark - setter
+
+- (void)setFistTableViewColor:(UIColor *)fistTableViewColor {
+    _fistTableViewColor = fistTableViewColor;
+    self.fistTableView.backgroundColor = self.fistTableViewColor;
+}
+
+- (void)setSecondTableViewColor:(UIColor *)secondTableViewColor {
+    _secondTableViewColor = secondTableViewColor;
+    self.secondTableView.backgroundColor = secondTableViewColor;
+}
+
+- (void)setThirdTableViewColor:(UIColor *)thirdTableViewColor {
+    _thirdTableViewColor = thirdTableViewColor;
+    self.thirdTableView.backgroundColor = thirdTableViewColor;
+}
+
+- (void)setCancelBtnColor:(UIColor *)cancelBtnColor {
+    _cancelBtnColor = cancelBtnColor;
+    [self.btnView.cacelBtn setTitleColor:cancelBtnColor forState:UIControlStateNormal];
+}
+
+- (void)setSureBtnColor:(UIColor *)sureBtnColor {
+    _sureBtnColor = sureBtnColor;
+    [self.btnView.sureBtn setTitleColor:sureBtnColor forState:UIControlStateNormal];
+}
+
+- (void)setTitleColor:(UIColor *)titleColor {
+    _titleColor = titleColor;
+    self.btnView.label.textColor = titleColor;
+}
+
+- (void)setTopTitle:(NSString *)topTitle {
+    _topTitle = topTitle;
+    self.btnView.label.text = topTitle;
+}
+
+- (void)setTitleFont:(UIFont *)titleFont {
+    _titleFont = titleFont;
+    self.btnView.label.font = titleFont;
+}
+
 
 #pragma makr - lazy
 

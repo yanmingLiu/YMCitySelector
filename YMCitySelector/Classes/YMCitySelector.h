@@ -44,6 +44,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YMCitySelector : UIViewController
 
+/// tableView 背景色
+@property (nonatomic, strong) UIColor *fistTableViewColor;
+@property (nonatomic, strong) UIColor *secondTableViewColor;
+@property (nonatomic, strong) UIColor *thirdTableViewColor;
+/// 文字字体 默认15
+@property (nonatomic, strong) UIFont *textFont;
+/// 默认文字颜色 默认 #484848
+@property (nonatomic, strong) UIColor *textDefaultColor;
+/// 选中时文字颜色 默认 #22BB62
+@property (nonatomic, strong) UIColor *textSelectedtColor;
+/// 取消按钮
+@property (nonatomic, strong) UIColor *cancelBtnColor;
+/// 确定按钮
+@property (nonatomic, strong) UIColor *sureBtnColor;
+/// 标题颜色
+@property (nonatomic, strong) UIColor *titleColor;
+/// 标题文字
+@property (nonatomic, strong) NSString *topTitle;
+/// 标题字体
+@property (nonatomic, strong) UIFont *titleFont;
+
 
 /// 选择回调
 @property (nonatomic, copy) void (^callback) (NSString *province, NSString *city,NSString *area) ;
@@ -54,8 +75,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param area 区
 - (void)fillDefaultWithProvince:(NSString *)province city:(NSString *)city area:(NSString *)area;
 
+/// 显示
 - (void)show;
 
+/// 关闭
 - (void)dismiss;
 
 @end

@@ -32,10 +32,14 @@
 - (IBAction)choose:(id)sender {
     
     YMCitySelector *vc = [[YMCitySelector alloc] init];
+//    vc.fistTableViewColor = [UIColor lightGrayColor];
+//    vc.textSelectedtColor = [UIColor grayColor];
+//    vc.textSelectedtColor = [UIColor blueColor];
+//    vc.sureBtnColor = UIColor.purpleColor;
+//    vc.topTitle = @"请选择地址";
     [vc show];
     
     vc.callback = ^(NSString * _Nonnull province, NSString * _Nonnull city, NSString * _Nonnull area) {
-      
         self.label.text = [NSString stringWithFormat:@"%@  %@  %@",province, city, area];
     };
 }
